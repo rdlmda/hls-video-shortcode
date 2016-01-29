@@ -20,7 +20,7 @@ function use_hls_video_shortcode($atts) {
 		'height' => '',
 	), $atts));
 
-	$id = uniqid('vid',TRUE);
+	$playerid = uniqid('hlsvideo');
 
 	// video source
 	if($src) {
@@ -40,12 +40,12 @@ function use_hls_video_shortcode($atts) {
 	$hlsvideoplayer .= <<<_end_
 
 	<div class="hls-video-player">
-		<video id="{$id}" class="video-js vjs-default-skin" width="{$width}" height="{$height}" controls>
+		<video id="{$playerid}" class="video-js vjs-default-skin" width="{$width}" height="{$height}" controls>
 			{$src}
 		</video>
 	</div>
 
-<script>var player = videojs('{$id}');</script>
+<script>var player = videojs('{$playerid}');</script>
 _end_;
 
 	// Return content
