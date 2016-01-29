@@ -1,14 +1,14 @@
 <?php
 /**
  * @package HLS Video Shortcode
- * @version 0.1
+ * @version 0.2
  */
 /*
 Plugin Name: HLS Video Shortcode
 Plugin URI: http://github.com/ruda-almeida/hls-video-shortcode
 Description: HLS Video Shortcode - Offers a shortcode for HLS video
 Author: Rudá Almeida
-Version: 0.1
+Version: 0.2
 Author URI: http://www.rudaalmeida.com.br
 License: GPL v3
 */
@@ -16,8 +16,6 @@ function use_hls_video_shortcode($atts) {
 	// extract shortcode informations
 	extract(shortcode_atts(array(
 		'src' => '',
-		'width' => '',
-		'height' => '',
 	), $atts));
 
 	$playerid = uniqid('hlsvideo');
@@ -27,23 +25,12 @@ function use_hls_video_shortcode($atts) {
 		$src = '<source src="'.$src.'" type="application/x-mpegURL" />';
 	}
 
-	// Set a default height if not available
-	if(!$height) {
-		$height = 320;
-	}
-	// Set a default width if not available
-	if(!$width) {
-		$width = 568;
-	}
-
 	// Create Player content for video
 	$hlsvideoplayer .= <<<_end_
 
-	<div class="hls-video-player">
-		<video id="{$playerid}" class="video-js vjs-default-skin" width="{$width}" height="{$height}" controls>
-			{$src}
-		</video>
-	</div>
+	<video id="{$playerid}" class="video-js vjs-default-skin" controls data-setup='{"fluid": true}'>
+		{$src}
+	</video>
 
 <script>var player = videojs('{$playerid}');</script>
 _end_;
